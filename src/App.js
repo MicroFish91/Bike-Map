@@ -4,6 +4,8 @@ import BikeMap from './Components/BikeMap';
 import AddButton from './Components/AddButton';
 import ClusterButton from './Components/ClusterButton';
 
+import './App.css';
+
 class App extends Component {
 
   render() {

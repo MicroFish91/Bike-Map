@@ -3,6 +3,6 @@ import { Button } from 'reactstrap';
 
 export default (props) => {
   return (
-    <Button color="primary">Add Data </Button>
+    <Button color="success">Scatter Data</Button>
   );
 };
