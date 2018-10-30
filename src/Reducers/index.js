@@ -12,6 +12,8 @@ function globalReducer(state, action){
 
         case 'bikeUpdate':
 
+            console.log(action.payload.features);
+
             // action.payload.features represents an array of geojson objects
             return {
                 ...state,

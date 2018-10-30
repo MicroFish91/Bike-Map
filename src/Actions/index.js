@@ -8,16 +8,14 @@ export const bikeUpdate = (formData) => async dispatch => {
         // Make API Call to BikeWise
         const response = await fetch(searchString)
         .then(result => result.json())
-        
-        console.log(response);
 
-        dispatch({ type: "bikeData", payload: response});
+        return dispatch({ type: "bikeUpdate", payload: response});
 
     } catch (error) {
 
         console.log(error);
 
-        dispatch({ type: "bikeData", payload: null });
+        return dispatch({ type: "bikeUpdate", payload: null });
 
     }
 
@@ -33,11 +31,13 @@ function searchFormat(formData){
 
     // Add additional string search parameters as necessary
     if (formData.occurredBefore){
-        requestURL += `occurred_before=${formData.occurredBefore}&`;
+        // Convert to unix timestamp
+        requestURL += `occurred_before=${Math.round((new Date(formData.occurredBefore)).getTime() / 1000)}&`;
     }
 
     if (formData.occurredAfter){
-        requestURL += `occurred_after=${formData.occurredAfter}&`;
+        // Convert to unix timestamp
+        requestURL += `occurred_after=${Math.round((new Date(formData.occurredAfter)).getTime() / 1000)}&`;
     }
 
     if (formData.incidentType){

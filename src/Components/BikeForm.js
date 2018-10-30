@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 
-import bikeUpdate from '../Actions/bikeUpdate';
+import * as actions from '../Actions';
 
 
 // Bike Form used to Obtain Search Parameters to Query BikeWise API
@@ -51,9 +51,13 @@ class BikeForm extends Component {
     this.setState({limit: e.target.value});
   }
 
-  sendData(){
+  // On Form Submit, Update Global State based on Form Inputs
+  sendData(e){
 
-    this.props.onBikeUpdate({
+    e.preventDefault();
+
+    // Trigger Action
+    this.props.bikeUpdate({
       occurredBefore: this.state.occurredBefore,
       occurredAfter: this.state.occurredAfter,
       incidentType: this.state.incidentType,
@@ -63,13 +67,12 @@ class BikeForm extends Component {
       limit: this.state.limit
     })
 
+    // Reset Form Field States
     this.setState({occurredBefore: "", occurredAfter: "", incidentType: "", proximity: "", proximitySquare: "", query: "", limit: ""});
 
   }
 
   render() {
-
-    var moment = require('moment');
 
     return (
 
@@ -118,7 +121,7 @@ class BikeForm extends Component {
           <Input type="text" name="limit" id="limit" placeholder="Max integer number of results to return. Defaults to 100" value={this.state.limit} onChange={(e) => this.updateLimit(e)} />
         </FormGroup>
 
-        <Button onSubmit={() => this.sendData()} color="primary" type="submit">Submit</Button>
+        <Button onClick={(e) => this.sendData(e)} color="primary" type="submit">Add Data</Button>
         
       </ Form>
 
@@ -127,17 +130,4 @@ class BikeForm extends Component {
 
 }
 
-
-// Map Actions
-function mapDispatchToProps(dispatch){
-  
-  return {
-      onBikeUpdate: (formData) => dispatch(bikeUpdate(formData))
-  }
-}
-
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(BikeForm);
+export default connect(null, actions)(BikeForm)
