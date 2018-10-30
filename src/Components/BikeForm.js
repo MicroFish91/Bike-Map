@@ -1,19 +1,70 @@
-import React from 'react';
-import { Button } from 'reactstrap';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
+import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
+
+import bikeUpdate from '../Actions/bikeUpdate';
+
+
+// Bike Form used to Obtain Search Parameters to Query BikeWise API
 class BikeForm extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      occurredBefore = "",
-      occurredAfter = "",
-      incidentType = "",
-      proximity = "",
-      proximitySquare = "",
-      query = "",
-      limit = ""
+      occurredBefore: "",
+      occurredAfter: "",
+      incidentType: "",
+      proximity: "",
+      proximitySquare: "",
+      query: "",
+      limit: ""
     }
+  }
+
+  // Update Form Field States When User Enters New Information
+  updateBefore(e){
+    this.setState({occurredBefore: e.target.value});
+  }
+
+  updateAfter(e){
+    this.setState({occurredAfter: e.target.value});
+  }
+
+  updateIncident(e){
+    this.setState({incidentType: e.target.value});
+  }
+
+  updateProximity(e){
+    this.setState({proximity: e.target.value});
+  }
+
+  updateSquare(e){
+    this.setState({proximitySquare: e.target.value});
+  }
+
+  updateQuery(e){
+    this.setState({query: e.target.value});
+  }
+
+  updateLimit(e){
+    this.setState({limit: e.target.value});
+  }
+
+  sendData(){
+
+    this.props.onBikeUpdate({
+      occurredBefore: this.state.occurredBefore,
+      occurredAfter: this.state.occurredAfter,
+      incidentType: this.state.incidentType,
+      proximity: this.state.proximity,
+      proximitySquare: this.state.proximitySquare,
+      query: this.state.query,
+      limit: this.state.limit
+    })
+
+    this.setState({occurredBefore: "", occurredAfter: "", incidentType: "", proximity: "", proximitySquare: "", query: "", limit: ""});
+
   }
 
   render() {
@@ -26,17 +77,17 @@ class BikeForm extends Component {
 
         <FormGroup>
           <Label for="occurredBefore">Occurred Before:</Label>
-          <Input type="date" name="occurredBefore" id="occurredBefore" placeholder="Format: YYYY-MM-DD" />
+          <Input type="date" name="occurredBefore" id="occurredBefore" placeholder="Format: YYYY-MM-DD" value={this.state.occurredBefore} onChange={(e) => this.updateBefore(e)} required />
         </FormGroup>
 
         <FormGroup>
           <Label for="occurredAfter">Occurred After:</Label>
-          <Input type="date" name="occurredAfter" id="occurredAfter" placeholder="Format: YYYY-MM-DD" />
+          <Input type="date" name="occurredAfter" id="occurredAfter" placeholder="Format: YYYY-MM-DD" value={this.state.occurredAfter} onChange={(e) => this.updateAfter(e)} required />
         </FormGroup>
 
         <FormGroup>
           <Label for="incidentType">Incident Type:</Label>
-          <Input type="select" name="incidentType" id="incidentType">
+          <Input type="select" name="incidentType" id="incidentType" value={this.state.incidentType} onChange={(e) => this.updateIncident(e)}>
             <option> </option>
             <option>crash</option>
             <option>hazard</option>
@@ -49,20 +100,25 @@ class BikeForm extends Component {
 
         <FormGroup>
           <Label for="proximity">Proximity:</Label>
-          <Input type="text" name="proximity" id="proximity" placeholder="Format: 210 NW 11th Ave; or Portland, OR; or 60647; or 45.521728,-122.67326 (lat,long)" />
+          <Input type="text" name="proximity" id="proximity" placeholder="Format: 210 NW 11th Ave; or Portland, OR; or 60647; or 45.521728,-122.67326 (lat,long)" value={this.state.proximity} onChange={(e) => this.updateProximity(e)} required />
         </FormGroup>
 
         <FormGroup>
           <Label for="proximitySquare">Proximity Square:</Label>
-          <Input type="text" name="proximitySquare" id="proximitySquare" placeholder="Format: Integer size of the proximity search (default: 100)" />
+          <Input type="text" name="proximitySquare" id="proximitySquare" placeholder="Format: Integer size of the proximity search (default: 100)" value={this.state.proximitySquare} onChange={(e) => this.updateSquare(e)} />
         </FormGroup>
 
         <FormGroup>
           <Label for="query">Query:</Label>
-          <Input type="text" name="query" id="query" placeholder="Format: Integer size of the proximity search (default: 100)" />
+          <Input type="text" name="query" id="query" placeholder="Full text search of incidents" value={this.state.query} onChange={(e) => this.updateQuery(e)} />
         </FormGroup>
 
+        <FormGroup>
+          <Label for="limit">Limit:</Label>
+          <Input type="text" name="limit" id="limit" placeholder="Max integer number of results to return. Defaults to 100" value={this.state.limit} onChange={(e) => this.updateLimit(e)} />
+        </FormGroup>
 
+        <Button onSubmit={() => this.sendData()} color="primary" type="submit">Submit</Button>
         
       </ Form>
 
@@ -71,4 +127,17 @@ class BikeForm extends Component {
 
 }
 
-export default BikeForm;
+
+// Map Actions
+function mapDispatchToProps(dispatch){
+  
+  return {
+      onBikeUpdate: (formData) => dispatch(bikeUpdate(formData))
+  }
+}
+
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(BikeForm);

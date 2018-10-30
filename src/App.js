@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import BikeMap from './Components/BikeMap';
-import AddButton from './Components/AddButton';
+import BikeForm from './Components/BikeForm';
 import ClusterButton from './Components/ClusterButton';
 
 import './App.css';
@@ -16,8 +16,7 @@ class App extends Component {
 
         <BikeMap />
 
-        <AddButton />
-        <ClusterButton />
+        <BikeForm />
 
       </div>
 
