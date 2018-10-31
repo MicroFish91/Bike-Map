@@ -3,7 +3,7 @@ function globalReducer(state, action){
     // Initialize States
     if (state === undefined){
 
-        return { bikeData: [], lat: 29.759019, lng: -95.370441 };
+        return { bikeData: [], lat: -95.370441, lng: 29.759019 };
 
     }
 

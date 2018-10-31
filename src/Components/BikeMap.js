@@ -22,13 +22,6 @@ class BikeMap extends Component {
       }
     }
 
-    shouldComponentUpdate(nextProps, nextState){
-
-      
-      
-      return false;
-    }
-
     render() {
 
       var searchPosition = [this.props.lng, this.props.lat];
@@ -48,7 +41,7 @@ class BikeMap extends Component {
             <Marker key={marker.properties.id} position={[marker.geometry.coordinates[1], marker.geometry.coordinates[0]]} icon={myIcon}> 
               <Popup> 
                 <span>
-                Coordinates: {marker.geometry.coordinates[0]},{marker.geometry.coordinates[1]} <br></br>
+                Coordinates: {marker.geometry.coordinates[1]},{marker.geometry.coordinates[0]} <br></br>
                 Type: {marker.properties.type} <br></br>
                 Occurred At: {date.getFullYear()}/{date.getMonth() + 1}/{date.getDate()}
                 </span> 
