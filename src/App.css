@@ -1,6 +1,9 @@
 #root {
-    height: 100%;
     margin: 1%;
+}
+
+.noResults {
+    text-align: center;
 }
 
 .map {

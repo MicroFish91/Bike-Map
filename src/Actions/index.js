@@ -1,3 +1,4 @@
+// Update State with New Bike Data
 export const bikeUpdate = (formData) => async dispatch => {
 
     // Set API Call Fetch String
@@ -9,7 +10,7 @@ export const bikeUpdate = (formData) => async dispatch => {
         const response = await fetch(searchString)
         .then(result => result.json())
 
-        return dispatch({ type: "bikeUpdate", payload: response});
+        return dispatch({ type: "bikeUpdate", payload: response });
 
     } catch (error) {
 
@@ -20,6 +21,13 @@ export const bikeUpdate = (formData) => async dispatch => {
     }
 
 };
+
+// Clear Existing Bike Data from State
+export const bikeClear = () => dispatch => {
+
+    return dispatch({type: "bikeClear"})
+
+}
 
 
 
@@ -66,3 +74,4 @@ function searchFormat(formData){
     return requestURL;
 
 }
+
