@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 import L from 'leaflet';
+
+// Works with test case: [51.505, -0.09]
 
 // Fixing icon image import issue
 var myIcon = L.icon({
@@ -65,7 +68,11 @@ class BikeMap extends Component {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
-            {markers}
+            <MarkerClusterGroup>
+
+              {markers}
+
+            </MarkerClusterGroup>
 
           </Map>
 
