@@ -31,7 +31,7 @@ class BikeMap extends Component {
 
     render() {
 
-      var searchPosition = [this.props.lat, this.props.lng];
+      var searchPosition = [this.props.lng, this.props.lat];
       var markers = [];
 
       // If Bike Data Exists, Map Popup Markers
@@ -45,7 +45,7 @@ class BikeMap extends Component {
     
           return (
           
-            <Marker key={marker.properties.id} position={marker.geometry.coordinates} icon={myIcon}> 
+            <Marker key={marker.properties.id} position={[marker.geometry.coordinates[1], marker.geometry.coordinates[0]]} icon={myIcon}> 
               <Popup> 
                 <span>
                 Coordinates: {marker.geometry.coordinates[0]},{marker.geometry.coordinates[1]} <br></br>
