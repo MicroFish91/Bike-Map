@@ -12,7 +12,6 @@ class BikeForm extends Component {
   constructor(props){
     super(props);
     this.state = {
-      addButton: true,
       occurredBefore: "",
       occurredAfter: "",
       incidentType: "",
@@ -67,22 +66,12 @@ class BikeForm extends Component {
       query: this.state.query,
       limit: this.state.limit
     })
+    this.props.toggleScatter();
+    this.props.toggleAdd();
+    this.props.toggleForm();
 
     // Reset Form Field States
-    this.setState({addButton: false, occurredBefore: "", occurredAfter: "", incidentType: "", proximity: "", proximitySquare: "", query: "", limit: ""});
-
-  }
-
-  // Clear Existing Bike Data
-  resetData(e){
-
-    e.preventDefault();
-
-    // Action
-    this.props.bikeClear();
-
-    // Toggle State and Clear
-    this.setState({addButton: true, occurredBefore: "", occurredAfter: "", incidentType: "", proximity: "", proximitySquare: "", query: "", limit: ""});
+    this.setState({occurredBefore: "", occurredAfter: "", incidentType: "", proximity: "", proximitySquare: "", query: "", limit: ""});
 
   }
 
@@ -135,11 +124,7 @@ class BikeForm extends Component {
           <Input type="text" name="limit" id="limit" placeholder="Max integer number of results to return. Defaults to 100" value={this.state.limit} onChange={(e) => this.updateLimit(e)} />
         </FormGroup>
 
-        { // Toggle Add/Remove Buttons
-        (this.state.addButton)
-          ? <Button onClick={(e) => this.sendData(e)} color="primary">Add Data</Button>
-          : <Button onClick={(e) => this.resetData(e)} color="info">Remove Data</Button>
-        }
+        <Button onClick={(e) => this.sendData(e)} color="primary">Submit </Button>
         
       </ Form>
 
@@ -149,4 +134,12 @@ class BikeForm extends Component {
 }
 
 
-export default connect(null, actions)(BikeForm)
+// Map Props from Global State
+function mapStateToProps(state){
+    
+  return {
+    formDisplay: state.formDisplay
+  }
+}
+
+export default connect(mapStateToProps, actions)(BikeForm)

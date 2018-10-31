@@ -17,7 +17,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
     reducer, 
-    {bikeData: [], lat: -95.370441, lng: 29.759019},
+    {bikeData: [], lat: -95.370441, lng: 29.759019, addDisplay: true, scatterDisplay: false, formDisplay: false },
     composeEnhancers(applyMiddleware(reduxThunk))
 );
 

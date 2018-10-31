@@ -25,10 +25,32 @@ export const bikeUpdate = (formData) => async dispatch => {
 // Clear Existing Bike Data from State
 export const bikeClear = () => dispatch => {
 
-    return dispatch({type: "bikeClear"})
+    return dispatch({type: "bikeClear"});
 
 }
 
+
+// Toggle Add Button
+export const toggleAdd = () => dispatch => {
+
+    return dispatch({type: "toggleAdd"});
+
+}
+
+
+// Toggle Scatter Button
+export const toggleScatter = () => dispatch => {
+
+    return dispatch({type: "toggleScatter"});
+
+}
+
+// Toggle Form Button
+export const toggleForm = () => dispatch => {
+
+    return dispatch({type: "toggleForm"});
+
+}
 
 
 // Format incoming data to match formatting requirements for BikeWise API

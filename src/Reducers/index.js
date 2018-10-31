@@ -3,7 +3,7 @@ function globalReducer(state, action){
     // Initialize States
     if (state === undefined){
 
-        return { bikeData: [], lat: -95.370441, lng: 29.759019 };
+        return { bikeData: [], lat: -95.370441, lng: 29.759019, addDisplay: true, scatterDisplay: false, formDisplay: false };
 
     }
 
@@ -28,8 +28,8 @@ function globalReducer(state, action){
                 return {
                     ...state,
                     bikeData: action.payload,
-                    lat: 29.759019, 
-                    lng: -95.370441
+                    lat: -95.370441, 
+                    lng: 29.759019
                 }
 
             }
@@ -39,8 +39,29 @@ function globalReducer(state, action){
             return {
                 ...state,
                 bikeData: [],
-                lat: 29.759019, 
-                lng: -95.370441
+                lat: -95.370441, 
+                lng: 29.759019
+            }
+
+        case "toggleAdd":
+
+            return {
+                ...state,
+                addDisplay: !state.addDisplay
+            }
+
+        case "toggleScatter":
+
+            return {
+                ...state,
+                scatterDisplay: !state.scatterDisplay
+            }
+
+        case "toggleForm":
+
+            return{
+                ...state,
+                formDisplay: !state.formDisplay
             }
 
         default:

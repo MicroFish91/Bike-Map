@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
+import Navbar from './Components/Navbar';
 import BikeMap from './Components/BikeMap';
 import BikeForm from './Components/BikeForm';
 
@@ -13,9 +15,19 @@ class App extends Component {
 
       <div>
 
+        <Navbar />
+
+        <br></br>
+
         <BikeMap />
 
-        <BikeForm />
+        <br></br>
+
+        {
+          (this.props.formDisplay)
+          ? <BikeForm />
+          : <div></div>
+        }
 
       </div>
 
@@ -23,4 +35,15 @@ class App extends Component {
   }
 }
 
-export default App;
+// Map Props from Global State
+function mapStateToProps(state){
+    
+  return {
+    formDisplay: state.formDisplay
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(App);
