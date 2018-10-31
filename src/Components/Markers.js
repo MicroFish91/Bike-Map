@@ -63,6 +63,7 @@ class Markers extends Component {
 
         )
     }
+
 }
 
 // Map Props from Global State
